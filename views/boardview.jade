@@ -1,0 +1,39 @@
+extends authorized
+
+block mainheader
+
+block maincontent
+    ol.breadcrumb
+        li
+            a(href="/") Homepage
+        li
+            a(href="/board") My board
+        li #{board.name}
+    #board-detail
+        if lists
+            - for(var i=0; i< lists.length; i++)
+                div(id="#{lists[i]._id}", class="board-list well well-sm")
+                    div(class="title")
+                        span #{lists[i].name}
+                        div(class="dropdown list-edit")
+                            a(href="#", class="glyphicon glyphicon-cog", data-toggle="dropdown")
+                            ul(class="dropdown-menu",role="menu")
+                                li
+                                    a(href="#") Action
+                                li
+                                    a(href="#") Action 2
+                                li.divider
+                                li
+                                    a(href="javascript: List.remove($(this))") Delete
+                    div.list-group
+                        - if(lists.length > 0)
+                            - for(var j=0; j<allCard[i].length; j++)
+                                a(href="#", id="#{allCard[i][j]._id}", class="card list-group-item", onmousedown="javascript: Card.drag.start($(this))")
+                                    div.card_name #{allCard[i][j].name}
+                        - else
+
+        a(href="javascript: List.add($(this));")
+            div(id="new-list-btn", class="board-list new-demo well well-sm")
+                p(class="title")
+                    span New List
+                span(class="new-list-icon glyphicon glyphicon-plus")

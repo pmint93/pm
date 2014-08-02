@@ -1,0 +1,15 @@
+extends authorized
+block mainheader
+
+block maincontent
+    #boardlist
+        .boardtitle My boards
+        .boardwrapp
+            - if(boards.length > 0)
+                - for(var i=0; i< boards.length; i++)
+                        a(id=boards[i]._id,class='board', href='/board/view/'+boards[i]._id+'#'+boards[i].name)
+                            span(class="glyphicon glyphicon-cog")
+                            p #{boards[i].name}
+
+            - else
+                p There are no board found !

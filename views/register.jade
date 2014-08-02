@@ -1,0 +1,17 @@
+extends main
+
+block header
+
+block content
+    div(class="center-block thumbnail box-register")
+        span(class='label label-info') Register
+        if errorMsg
+            span(class='label label-danger noti-result') #{errorMsg || "Error occured!"}
+        else if successMsg
+            span(class='label label-success noti-result') #{successMsg}
+        form(method="POST", name="Login form", class="center-block form")
+            input(type="text", name="_username", placeholder="Username", class="form-control")
+            input(type="password", name="_pwd", placeholder="Password", class="form-control")
+            input(type="password", name="_repwd", placeholder="Re-enter password", class="form-control")
+            input(type="submit", name="submit", class="btn btn-info", value="Register")
+            a(href="/",class='btn btn-default') #{successMsg?"Login":"Cancel"}

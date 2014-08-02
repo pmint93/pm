@@ -1,0 +1,42 @@
+extends main
+block header
+    script(src="/js/board.js")
+    block mainheader
+
+block content
+    nav(class="navbar navbar-default",role="navigation")
+        div(class="collapse navbar-collapse")
+            ul(class="nav navbar-nav")
+                li(class=(menuactive=="home"?"active ":" "))
+                    a(href="/") Home
+                li(class="dropdown"+(menuactive=="board"?" active ":" "))
+                    a(href="#",class="dropdown-toggle",data-toggle="dropdown") My boards
+                        span.caret
+                    ul(class="dropdown-menu",role="menu")
+                        li
+                            a(href="/board") View all
+                        - if(boards && boards.length > 0)
+                            li.divider
+                            - for(var i =0; i< boards.length; i++)
+                                li(class=((board && boards[i]._id == board._id) ? "active":""))
+                                    a(href="/board/view/"+boards[i]._id) #{boards[i].name}
+                            li.divider
+                            li
+                                a(href="javascript: Board.add.show()")
+                                    span(class="glyphicon glyphicon-plus")  New
+                li(class=(menuactive=="logout"?"active ":" "))
+                    a(href="/logout") Logout
+
+    #main.thumbnail
+        block maincontent
+    #footer
+
+    #fixed
+        #newboard(class="popup thumbnail")
+            .header
+                span(class="title") Create board
+                a(href="javascript: Board.add.hide()", class="glyphicon glyphicon-remove")
+            .body
+                p
+                    input(type="text",class="form-control", placeholder="Untitled board")
+                a(href="javascript: Board.add.send()", class="btn btn-info") Create
